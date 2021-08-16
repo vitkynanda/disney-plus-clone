@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 
 export default function Movies() {
   const movies = useSelector(selectMovies);
-
   return (
     <Container>
       <h4>Recommended for you</h4>
@@ -81,4 +80,8 @@ const Content = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 25px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 `;

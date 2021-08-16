@@ -61,6 +61,7 @@ const Wrap = styled.div`
     border-radius: 5px;
     width: 100%;
     height: 100%;
+    object-fit: cover;
     box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
       rgb(0 0 0 / 73%) 0 16px 10px -10px;
     transition: all 0.25s ease-in-out;
@@ -70,5 +71,9 @@ const Wrap = styled.div`
       transform: scale(1.01);
       border: 4px solid whitesmoke;
     }
+  }
+
+  @media (max-width: 768px) {
+    height: 200px;
   }
 `;

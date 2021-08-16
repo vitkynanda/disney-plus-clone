@@ -41,7 +41,7 @@ export default function Header() {
     auth.signOut().then(() => dispatch(logout()));
     history.push("/login");
   };
-  console.log(user);
+
   return (
     <Nav>
       <Link to="/">
@@ -95,7 +95,10 @@ const Nav = styled.nav`
   height: 70px;
   background-color: #090b13;
   padding: 0 36px;
-  overflow-x: hidden;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Logo = styled.img`

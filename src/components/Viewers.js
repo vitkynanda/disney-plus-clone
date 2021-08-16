@@ -1,23 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function Viewers() {
+  const [hover1, setHover1] = useState(false);
+  const [hover2, setHover2] = useState(false);
+  const [hover3, setHover3] = useState(false);
+  const [hover4, setHover4] = useState(false);
+  const [hover5, setHover5] = useState(false);
+
   return (
     <Container>
-      <Wrap>
-        <img src="/images/viewers-disney.png" alt="" />
+      <Wrap
+        onMouseEnter={() => setHover1(true)}
+        onMouseLeave={() => setHover1(false)}
+      >
+        {hover1 ? (
+          <video autoPlay src="videos/1564674844-disney.mp4" loop>
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <img src="/images/viewers-disney.png" alt="" />
+        )}
       </Wrap>
-      <Wrap>
-        <img src="/images/viewers-national.png" alt="" />
+      <Wrap
+        onMouseEnter={() => setHover2(true)}
+        onMouseLeave={() => setHover2(false)}
+      >
+        {hover2 ? (
+          <video autoPlay src="videos/1564676296-national-geographic.mp4" loop>
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <img src="/images/viewers-national.png" alt="" />
+        )}
       </Wrap>
-      <Wrap>
-        <img src="/images/viewers-marvel.png" alt="" />
+      <Wrap
+        onMouseEnter={() => setHover3(true)}
+        onMouseLeave={() => setHover3(false)}
+      >
+        {hover3 ? (
+          <video autoPlay src="videos/1564676115-marvel.mp4" loop>
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <img src="/images/viewers-marvel.png" alt="" />
+        )}
       </Wrap>
-      <Wrap>
-        <img src="/images/viewers-pixar.png" alt="" />
+      <Wrap
+        onMouseEnter={() => setHover4(true)}
+        onMouseLeave={() => setHover4(false)}
+      >
+        {hover4 ? (
+          <video autoPlay src="videos/1564676714-pixar.mp4" loop>
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <img src="/images/viewers-pixar.png" alt="" />
+        )}
       </Wrap>
-      <Wrap>
-        <img src="/images/viewers-starwars.png" alt="" />
+      <Wrap
+        onMouseEnter={() => setHover5(true)}
+        onMouseLeave={() => setHover5(false)}
+      >
+        {hover5 ? (
+          <video autoPlay src="videos/1608229455-star-wars.mp4" loop>
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <img src="/images/viewers-starwars.png" alt="" />
+        )}
       </Wrap>
     </Container>
   );
@@ -33,7 +84,7 @@ const Container = styled.div`
   @media screen and (max-width: 640px) {
     margin-top: 30px;
     display: grid;
-    padding: 30px 0 26px;
+    padding: 10px 0 16px;
     grid-template-columns: 1fr;
     grid-gap: 24px;
   }
@@ -50,9 +101,18 @@ const Wrap = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    &:after {
+    }
   }
+
   &:hover {
     transform: scale(1.05);
     border-color: rgba(249, 249, 249, 0.8);
+  }
+
+  video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 `;

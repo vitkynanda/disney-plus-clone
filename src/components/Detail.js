@@ -5,7 +5,6 @@ import db from "../firebase";
 
 export default function Detail() {
   const { id } = useParams();
-
   const [movie, setMovie] = useState({});
   useEffect(() => {
     db.collection("movies")

@@ -13,7 +13,6 @@ export default function Movies() {
       <Content>
         {movies
           .map((item, index) => {
-            console.log(item);
             return (
               <Wrap key={index}>
                 <Link to={`/detail/${item.id}`}>

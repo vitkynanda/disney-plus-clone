@@ -1,27 +1,43 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { selectMovies, setMovies } from "../features/movie/movieSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { collection, getDocs } from "firebase/firestore";
 import db from "../firebase";
 
 export default function Detail() {
   const { id } = useParams();
+  const movies = useSelector(selectMovies);
   const [movie, setMovie] = useState({});
+  const dispatch = useDispatch();
   useEffect(() => {
-    db.collection("movies")
-      .doc(id)
-      .get()
-      .then((doc) => setMovie(doc.data()));
-  }, [id]);
+    if (movies.length === 0) {
+      const getMovies = async () => {
+        const querySnapshot = await getDocs(collection(db, "series"));
+        const resMovies = querySnapshot.docs.map((movie) => movie.data());
+        dispatch(setMovies(resMovies));
+      };
+      getMovies();
+    }
+    setMovie(movies.find((mov) => mov.id === id));
+  }, [id, dispatch, movies]);
 
   return (
     <Container>
       {movie && (
         <>
           <Background>
-            <img src={movie.backgroundImg} alt="" />
+            <img
+              src={`/images/series/${movie.genre}/${movie.slug}/large.jpg`}
+              alt=""
+            />
           </Background>
           <ImageTitle>
-            <img src={movie.titleImg} alt="title" />
+            {/* <img
+              src={`/images/series/${movie.genre}/${movie.slug}/small.jpg`}
+              alt="title"
+            /> */}
           </ImageTitle>
           <Controls>
             <PlayButton>
@@ -39,7 +55,7 @@ export default function Detail() {
               <img src="/images/group-icon.png" alt="" />
             </GroupButton>
           </Controls>
-          <Subtitle>{movie.subTitle}</Subtitle>
+          <Subtitle>{movie.title}</Subtitle>
           <Description>{movie.description}</Description>
         </>
       )}
@@ -136,7 +152,8 @@ const GroupButton = styled(AddButton)``;
 
 const Subtitle = styled.div`
   color: rgb(249, 249, 249);
-  font-size: 15px;
+  font-size: 28px;
+  font-weight: 700;
   margin-top: 20px;
   min-height: 20px;
 `;
@@ -146,4 +163,5 @@ const Description = styled.div`
   line-height: 1.4;
   font-size: 20px;
   margin-top: 16px;
+  max-width: 800px;
 `;

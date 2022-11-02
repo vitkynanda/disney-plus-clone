@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, login, logout } from "../features/user/userSlice";
 import { auth, provider } from "../firebase";
+import { onAuthStateChanged, signInWithPopup } from "firebase/auth";
 
 export default function Header() {
   const history = useHistory();
@@ -11,8 +12,8 @@ export default function Header() {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user)
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
         dispatch(
           login({
             username: user.displayName,
@@ -20,12 +21,14 @@ export default function Header() {
             photo: user.photoURL,
           })
         );
+        history.push("/home");
+      }
     });
-    history.push("/home");
   }, [dispatch, history]);
 
   const SignIn = () => {
-    auth.signInWithPopup(provider).then(({ user }) => {
+    signInWithPopup(auth, provider).then((result) => {
+      const { user } = result;
       dispatch(
         login({
           username: user.displayName,

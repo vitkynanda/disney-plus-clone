@@ -6,18 +6,25 @@ import { useSelector } from "react-redux";
 
 export default function Movies() {
   const movies = useSelector(selectMovies);
+
   return (
     <Container>
       <h4>Recommended for you</h4>
       <Content>
         {movies
-          .map((item, index) => (
-            <Wrap key={index}>
-              <Link to={`/detail/${item.id}`}>
-                <img src={item.cardImg} alt={item.title} />
-              </Link>
-            </Wrap>
-          ))
+          .map((item, index) => {
+            console.log(item);
+            return (
+              <Wrap key={index}>
+                <Link to={`/detail/${item.id}`}>
+                  <img
+                    src={`/images/series/${item.genre}/${item.slug}/small.jpg`}
+                    alt={item.title}
+                  />
+                </Link>
+              </Wrap>
+            );
+          })
           .slice(0, 4)}
       </Content>
       <h4>New to Disney+</h4>
@@ -26,7 +33,10 @@ export default function Movies() {
           .map((item, index) => (
             <Wrap key={index}>
               <Link to={`/detail/${item.id}`}>
-                <img src={item.cardImg} alt={item.title} />
+                <img
+                  src={`/images/series/${item.genre}/${item.slug}/small.jpg`}
+                  alt={item.title}
+                />
               </Link>
             </Wrap>
           ))
@@ -38,7 +48,10 @@ export default function Movies() {
           .map((item, index) => (
             <Wrap key={index}>
               <Link to={`/detail/${item.id}`}>
-                <img src={item.cardImg} alt={item.title} />
+                <img
+                  src={`/images/series/${item.genre}/${item.slug}/small.jpg`}
+                  alt={item.title}
+                />
               </Link>
             </Wrap>
           ))

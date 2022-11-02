@@ -5,17 +5,18 @@ import Movies from "./Movies";
 import Viewers from "./Viewers";
 import db from "../firebase";
 import { setMovies } from "../features/movie/movieSlice";
+import { collection, getDocs } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 
 export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
-    db.collection("movies").onSnapshot((snapshot) => {
-      let tempMovies = snapshot.docs.map((movie) => {
-        return { id: movie.id, ...movie.data() };
-      });
-      dispatch(setMovies(tempMovies));
-    });
+    const getMovies = async () => {
+      const querySnapshot = await getDocs(collection(db, "series"));
+      const movies = querySnapshot.docs.map((movie) => movie.data());
+      dispatch(setMovies(movies));
+    };
+    getMovies();
   }, [dispatch]);
 
   return (

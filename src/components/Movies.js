@@ -73,6 +73,7 @@ const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   cursor: pointer;
+  margin-right:
 
   margin-bottom: 20px;
   img {
@@ -95,5 +96,5 @@ const Content = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  
 `;
